@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Project_03</string>
+    <string name="btn_act_2">Go to Activity 2</string>
+    <string name="btn_act_3">Go to Activity 3</string>
+    <string name="btn_finish">Finish</string>
+    <string name="default_textView">0</string>
+    <string name="channel_name">Default</string>
+    <string name="channel_description">Default</string>
+    <string name="notificationLifecycle">b</string>
+</resources>
