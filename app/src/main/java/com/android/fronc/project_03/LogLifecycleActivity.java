@@ -49,6 +49,7 @@ public class LogLifecycleActivity extends Activity {
         super.onCreate(savedInstanceState);
         notifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         makeNotification("onCreate");
+        createNotificationChannel();
     }
 
     @Override
@@ -184,15 +185,16 @@ public class LogLifecycleActivity extends Activity {
 
     private void makeNotification(final String methodName) {
         long currentTimeMillis = System.currentTimeMillis();
-        printNotificationCustom(methodName, currentTimeMillis);
+        printNotification(methodName, currentTimeMillis);
+//        printNotificationCustom(methodName, currentTimeMillis);
     }
 
-    private void printNotification(final String methodName, long currentTimeMillis) {/*
+    private void printNotification(final String methodName, long currentTimeMillis) {
         String stringTime = getStringDateTimeFromMillisUnixTime(currentTimeMillis);
         String stringClassName = getClass().getSimpleName();
         Log.d(LOG_TAG, methodName + " " + className + " (" + stringTime + ")");
         if (enableNotifications) {
-            /*
+/*
             // Set Notification Title
             String strTitle = getString(R.string.notificationtitle);
             // Set Notification Text
@@ -205,7 +207,7 @@ public class LogLifecycleActivity extends Activity {
             intent.putExtra("text", strtext);
             // Open NotificationView.java Activity
             PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent.FLAG_UPDATE_CURRENT);*/
 
 
             // Add Big View Specific Configuration
@@ -224,7 +226,7 @@ public class LogLifecycleActivity extends Activity {
             }
 
             //Create Notification using NotificationCompat.Builder
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_lifecycle_notification)
                     .setTicker(getString(R.string.notificationLifecycle))
                     .setContentTitle(methodName + " (" + stringClassName + ")")
@@ -236,8 +238,8 @@ public class LogLifecycleActivity extends Activity {
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             // Build Notification with Notification Manager
             int thisNotificationId = (int)currentTimeMillis;
-            notificationManager.notify(NOTIFICATION_ID, builder.build());
-        }*/
+            notificationManager.notify(thisNotificationId, builder.build());
+        }
     }
 
     private void printNotificationCustom(final String methodName, long currentTimeMillis) {
